@@ -10,6 +10,8 @@ Once you have docker, create a folder with the following structure:
 
 project/  
 |  
+|__ docker-compose.yaml  
+|  
 |__ modelService/ **[Repo](https://github.com/Proyecto-de-Grado-Brainy-Noise/modelService/tree/develop)**  
 |   |__ ...  
 |   |__ Dockerfile   
