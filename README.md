@@ -9,10 +9,10 @@ if not install here:  [Docker](https://www.docker.com)
 Once you have docker, create a folder with the following structure:
 
 project/  
-|__ modelService/ **[Repo](https://github.com/Proyecto-de-Grado-Brainy-Noise/modelService/tree/develop)**. 
+|__ modelService/ **[Repo](https://github.com/Proyecto-de-Grado-Brainy-Noise/modelService/tree/develop)**  
 |   |__ ...  
-|   |__ Dockerfile. 
-|   |__ requirements.txt. 
+|   |__ Dockerfile   
+|   |__ requirements.txt   
 |
 |__ queryResultsService/  **[Repo](https://github.com/Proyecto-de-Grado-Brainy-Noise/queryResultsService/tree/develop)**. 
 |   |__ ...  
