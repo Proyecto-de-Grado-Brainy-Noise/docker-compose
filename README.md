@@ -21,6 +21,23 @@ project/
 |
 |__ README .md
 
+
+project/
+|
+|__ modelService/
+|   |
+|   |__ Dockerfile
+|   |
+|   |__ requirements.txt
+|
+|__ queryResultsService/
+|   |
+|   |__ Dockerfile
+|   |
+|   |__ requirements.txt
+|
+|__ README.md
+
 Once you have check the structure of the folders, make sure you are in the same path of the docker-compose, with that run the following command:
 
 ```sh
