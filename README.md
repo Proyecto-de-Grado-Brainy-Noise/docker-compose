@@ -13,13 +13,13 @@ project/
 |   |__ ...  
 |   |__ Dockerfile   
 |   |__ requirements.txt   
-|
-|__ queryResultsService/  **[Repo](https://github.com/Proyecto-de-Grado-Brainy-Noise/queryResultsService/tree/develop)**. 
+|  
+|__ queryResultsService/  **[Repo](https://github.com/Proyecto-de-Grado-Brainy-Noise/queryResultsService/tree/develop)**   
 |   |__ ...  
-|   |__ Dockerfile. 
-|   |__ requirements.txt. 
-|
-|__ README .md. 
+|   |__ Dockerfile   
+|   |__ requirements.txt   
+|       
+|__ README .md   
 
 
 project/
