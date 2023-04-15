@@ -14,12 +14,12 @@ project/
 |  
 |__ modelService/ **[Repo](https://github.com/Proyecto-de-Grado-Brainy-Noise/modelService/tree/develop)**  
 |   |__ ...  
-|   |__ Dockerfile   
+|   |__ dockerfile   
 |   |__ requirements.txt   
 |  
 |__ queryResultsService/  **[Repo](https://github.com/Proyecto-de-Grado-Brainy-Noise/queryResultsService/tree/develop)**   
 |   |__ ...  
-|   |__ Dockerfile   
+|   |__ dockerfile   
 |   |__ requirements.txt   
 |       
 |__ README .md   
