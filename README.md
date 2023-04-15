@@ -4,7 +4,7 @@ Docker compose file to run the complete project.
 
 ## Runnning
 Make sure you have already install Docker.
-if not install here:  [Docker](https://www.docker.com)
+if you haven't, install here:  [Docker](https://www.docker.com)
 
 Once you have docker, create a folder with the following structure:
 
