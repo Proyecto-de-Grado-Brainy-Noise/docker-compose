@@ -9,6 +9,7 @@ if not install here:  [Docker](https://www.docker.com)
 Once you have docker, create a folder with the following structure:
 
 project/  
+|  
 |__ modelService/ **[Repo](https://github.com/Proyecto-de-Grado-Brainy-Noise/modelService/tree/develop)**  
 |   |__ ...  
 |   |__ Dockerfile   
@@ -22,21 +23,6 @@ project/
 |__ README .md   
 
 
-project/
-|
-|__ modelService/
-|   |
-|   |__ Dockerfile
-|   |
-|   |__ requirements.txt
-|
-|__ queryResultsService/
-|   |
-|   |__ Dockerfile
-|   |
-|   |__ requirements.txt
-|
-|__ README.md
 
 Once you have check the structure of the folders, make sure you are in the same path of the docker-compose, with that run the following command:
 
