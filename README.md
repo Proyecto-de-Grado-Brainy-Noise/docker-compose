@@ -24,7 +24,7 @@ project/
 
 
 
-Once you have check the structure of the folders, make sure you are in the same path of the docker-compose, with that run the following command:
+Once you have check the structure of the folders, make sure you are in the same path of the docker-compose, then, run the following command:
 
 ```sh
 docker-compose up
