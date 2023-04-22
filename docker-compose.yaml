@@ -30,9 +30,6 @@ services:
         volumes:
           - ./modelService/model_prediction/temp:/usr/src/app/temp
 
-        mem_limit: 3g
-
-
     rabbitmq:
       image: rabbitmq:3.8
       networks:
