@@ -5,7 +5,7 @@ services:
         build:
             context: ./modelService
             dockerfile: dockerfile
-        container_name: django_model
+        container_name: django-model
         command: python manage.py runserver 0.0.0.0:9004
         ports:
             - "9004:9004"
@@ -40,7 +40,7 @@ services:
         build:
             context: ./queryResultsService
             dockerfile: dockerfile
-        container_name: django_query
+        container_name: django-query
         command: python manage.py runserver 0.0.0.0:9005
         volumes:
             - .:/usr/src/app/
