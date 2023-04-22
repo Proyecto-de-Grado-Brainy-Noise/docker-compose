@@ -1,14 +1,12 @@
 version: "3"
    
 services:
-    django_model_service:
+    django-model-service:
         build:
             context: ./modelService
             dockerfile: dockerfile
         container_name: django_model
         command: python manage.py runserver 0.0.0.0:9004
-        volumes:
-            - .:/usr/src/app/
         ports:
             - "9004:9004"
         environment:
@@ -18,7 +16,7 @@ services:
             - rabbitmq
             - mongodb
         networks:
-            - appnet
+            - appnet   
 
     worker:
         build:
@@ -29,13 +27,19 @@ services:
         networks:
           - appnet
 
+        volumes:
+          - ./modelService/model_prediction/temp:/usr/src/app/temp
+
+        mem_limit: 3g
+
+
     rabbitmq:
       image: rabbitmq:3.8
       networks:
           - appnet   
 
 
-    django_query_service:
+    django-query-service:
         build:
             context: ./queryResultsService
             dockerfile: dockerfile
@@ -52,47 +56,6 @@ services:
         networks:
             - appnet      
         
-
-    # worker_2:
-    #     build: .
-    #     command: celery -A modelService worker --pool threads -l info
-    #     depends_on:
-    #        - rabbitmq
-    #     networks:
-    #       - appnet  
-    #     mem_limit: 2g      
-
-    # worker_3:
-    #     build: .
-    #     command: celery -A modelService worker --pool threads -l info
-    #     depends_on:
-    #        - rabbitmq
-    #     networks:
-    #       - appnet        
-    #     mem_limit: 2g
-
-    # worker_4:
-    #     build: .
-    #     command: celery -A modelService worker --pool threads -l info
-    #     depends_on:
-    #        - rabbitmq
-    #     networks:
-    #       - appnet  
-    #     mem_limit: 2g
-
-    # worker_5:
-    #     build: .
-    #     command: celery -A modelService worker --pool threads -l info
-    #     depends_on:
-    #        - rabbitmq
-    #     networks:
-    #       - appnet
-    #     mem_limit: 2g                    
-
-
-       
-
-
     mongodb:
       image: mongo:latest
       restart: always
@@ -109,5 +72,3 @@ services:
 networks:
   appnet:
     driver: bridge                
-
-
