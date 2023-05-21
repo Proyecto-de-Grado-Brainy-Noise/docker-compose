@@ -1,71 +1,118 @@
-version: "3"
-   
+version: '3'
+
+name: brainy-noise-backend
+
 services:
-    django-model-service:
-        build:
-            context: ./modelService
-            dockerfile: dockerfile
-        container_name: django-model
-        command: python manage.py runserver 0.0.0.0:9004
-        ports:
-            - "9004:9004"
-        environment:
-            - DEBUG=1
-            - CELERY_BROKER=guest@rabbitmq:5672
-        depends_on:
-            - rabbitmq
-            - mongodb
-        networks:
-            - appnet   
+  users-db:
+    container_name: users-db
+    build:
+      context: ./user_management/database
+    environment:
+      - MYSQL_ROOT_PASSWORD=1
+    volumes:
+      - users-db:/var/lib/mysql
+    networks:
+      - appnet
 
-    worker:
-        build:
-            context: ./modelService
-        command: celery -A modelService worker --pool threads -l info
-        depends_on:
-           - rabbitmq
-        networks:
-          - appnet
+  users-management:
+    container_name: users-management
+    build:
+      context: ./user_management
+    environment:
+      - spring.datasource.url=jdbc:mariadb://users-db:3306/brainy_noise
+    ports:
+      - 8080:8080
+    depends_on:
+      - users-db
+    networks:
+      - appnet
 
-        volumes:
-          - ./modelService/model_prediction/temp:/usr/src/app/temp
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./api_gateway
+    ports:
+      - 9000:9000
+    depends_on:
+      - users-management
+    networks:
+      - appnet
 
-    rabbitmq:
-      image: rabbitmq:3.8
-      networks:
-          - appnet   
+  frontend:
+    container_name: frontend
+    build:
+      context: ./Frontend
+    ports:
+      - 4200:80
+    depends_on:
+      - api-gateway
+    networks:
+      - appnet
 
+  django_model_service:
+    build:
+      context: ./modelService
+      dockerfile: dockerfile
+    container_name: django-model
+    command: python manage.py runserver 0.0.0.0:9004
+    ports:
+      - "9004:9004"
+    environment:
+      - DEBUG=1
+      - CELERY_BROKER=guest@rabbitmq:5672
+    depends_on:
+      - rabbitmq
+      - mongodb
+    networks:
+      - appnet
 
-    django-query-service:
-        build:
-            context: ./queryResultsService
-            dockerfile: dockerfile
-        container_name: django-query
-        command: python manage.py runserver 0.0.0.0:9005
-        volumes:
-            - .:/usr/src/app/
-        ports:
-            - "9005:9005"
-        environment:
-            - DEBUG=1
-        depends_on:
-            - mongodb
-        networks:
-            - appnet      
-        
-    mongodb:
-      image: mongo:latest
-      restart: always
-      environment:
-          MONGO_INITDB_ROOT_USERNAME: root
-          MONGO_INITDB_ROOT_PASSWORD: example
-      networks:
-          - appnet      
+  worker:
+    build:
+      context: ./modelService
+    command: celery -A modelService worker --pool threads -l info
+    depends_on:
+      - rabbitmq
+    networks:
+      - appnet
+    volumes:
+      - ./modelService/model_prediction/temp:/usr/src/app/temp
 
-      volumes:
-          - ./mongo-data:/data/db   
+  rabbitmq:
+    image: rabbitmq:3.8
+    networks:
+      - appnet
 
+  django_query_service:
+    build:
+      context: ./queryResultsService
+      dockerfile: dockerfile
+    container_name: django-query
+    command: python manage.py runserver 0.0.0.0:9005
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "9005:9005"
+    environment:
+      - DEBUG=1
+    depends_on:
+      - mongodb
+    networks:
+      - appnet
+
+  mongodb:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - appnet
+    volumes:
+      - ./mongo-data:/data/db
+
+volumes:
+  users-db: {}
 
 networks:
   appnet:
-    driver: bridge                
+    driver: bridge
